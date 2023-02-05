@@ -1,9 +1,9 @@
 // 全局运行时配置
 import Logo from '@/assets/logo.png';
 import GlobalFooter from '@/components/GlobalFooter';
-import {getLoginUser} from '@/services/userService';
-import {RunTimeLayoutConfig} from '@@/plugin-layout/types';
-import type {RequestConfig} from 'umi';
+import { getLoginUser } from '@/services/userService';
+import { RunTimeLayoutConfig } from '@@/plugin-layout/types';
+import type { RequestConfig } from 'umi';
 import './global.less';
 import RightContent from '@/components/GlobalHeader/RightContent';
 
@@ -19,8 +19,7 @@ export async function getInitialState(): Promise<InitialState> {
     try {
         const res = await getLoginUser();
         defaultState.loginUser = res.data;
-    } catch (e) {
-    }
+    } catch (e) {}
     return defaultState;
 }
 
@@ -39,8 +38,7 @@ export const layout: RunTimeLayoutConfig = () => {
         contentStyle: {
             paddingBottom: 120,
         },
-        rightContentRender: () => <RightContent/>,
-        footerRender: () => <GlobalFooter/>,
+        rightContentRender: () => <RightContent />,
     };
 };
 
@@ -56,10 +54,8 @@ export const request: RequestConfig = {
     withCredentials: true,
     // other axios options you want
     errorConfig: {
-        errorHandler() {
-        },
-        errorThrower() {
-        },
+        errorHandler() {},
+        errorThrower() {},
     },
     requestInterceptors: [],
     responseInterceptors: [

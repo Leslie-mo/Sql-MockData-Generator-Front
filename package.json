@@ -1,6 +1,6 @@
 {
   "private": true,
-  "author": "yupi",
+  "author": "leslie",
   "scripts": {
     "dev": "max dev",
     "build": "max build",

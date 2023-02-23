@@ -41,7 +41,7 @@ const TableInfoCreateModal: React.FC<PropsWithChildren<Props>> = (props) => {
      */
     const columns: ProColumns<TableInfoType.TableInfo>[] = [
         {
-            title: 'Table name',
+            title: 'Table Name',
             dataIndex: 'name',
             formItemProps: {
                 rules: [{required: true}],
@@ -70,6 +70,10 @@ const TableInfoCreateModal: React.FC<PropsWithChildren<Props>> = (props) => {
                 form={{
                     initialValues,
                     submitter: {
+                        searchConfig: {
+                            submitText: "Submit",
+                            resetText: "Reset"
+                        },
                         render: (props, dom) => [...dom.reverse()],
 
                     },

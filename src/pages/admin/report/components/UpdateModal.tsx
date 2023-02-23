@@ -1,5 +1,5 @@
 import {updateReport} from '@/services/reportService';
-import {ProColumns, ProTable} from '@ant-design/pro-components';
+import {ProColumns, } from '@ant-design/pro-components';
 import {message, Modal} from 'antd';
 import React, {PropsWithChildren} from 'react';
 

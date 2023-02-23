@@ -134,7 +134,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                     name="tableName"
                     label="Table Name"
                     initialValue="test_table"
-                    rules={[{required: true}]}
+                    rules={[{required: true,message: "Please enter the table name"}]}
                 >
                     <Input placeholder="Enter table name"/>
                 </Form.Item>
@@ -145,7 +145,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                     label="Generate Number"
                     name="mockNum"
                     initialValue={20}
-                    rules={[{required: true}]}
+                    rules={[{required: true,message: "Please enter the generate number"}]}
                 >
                     <InputNumber min={10} max={100}/>
                 </Form.Item>
@@ -214,7 +214,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                             <Form.Item
                                                 label="Field Type"
                                                 name={[field.name, 'fieldType']}
-                                                rules={[{required: true}]}
+                                                rules={[{required: true,message: "Please enter the field type"}]}
                                             >
                                                 <AutoComplete
                                                     style={{width: 120}}

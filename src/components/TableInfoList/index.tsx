@@ -124,6 +124,8 @@ const TableInfoList: React.FC<Props> = (props) => {
                                         onConfirm={() => {
                                             doDelete(item.id);
                                         }}
+                                        okText="Yes"
+                                        cancelText="No"
                                     >
                                         <Button type="text" danger>
                                             delete

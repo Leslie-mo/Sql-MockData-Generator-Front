@@ -66,20 +66,6 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
         onSubmit?.(values);
     };
 
-    // 获取可选词库列表
-    // const loadDictList = () => {
-    //   listMyDict({})
-    //     .then((res) => {
-    //       setDictList(res.data);
-    //     })
-    //     .catch((e) => {
-    //       message.error('加载词库失败，' + e.message);
-    //     });
-    // };
-    //
-    // useEffect(() => {
-    //   loadDictList();
-    // }, []);
 
     // 供父组件调用
     useImperativeHandle(ref, () => ({
@@ -167,7 +153,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                                 label="Field Name"
                                                 requiredMark="optional"
                                                 name={[field.name, 'fieldName']}
-                                                rules={[{required: true}]}
+                                                rules={[{required: true,message: "Please enter the field name"}]}
                                             >
                                                 <Input placeholder="Enter field name"/>
                                             </Form.Item>
@@ -300,7 +286,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                                     if (mockType === 'Fixed') {
                                                         return (
                                                             <Form.Item
-                                                                label="Fixed value"
+                                                                label="Fixed Value"
                                                                 name={[field.name, 'mockParams']}
                                                             >
                                                                 <Input placeholder="Please input fixed value"/>
@@ -336,7 +322,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                                             <Form.Item
                                                                 label="Starting Value"
                                                                 name={[field.name, 'mockParams']}
-                                                                rules={[{required: true}]}
+                                                                rules={[{required: true,message: "Please enter the starting value"}]}
                                                             >
                                                                 <InputNumber/>
                                                             </Form.Item>

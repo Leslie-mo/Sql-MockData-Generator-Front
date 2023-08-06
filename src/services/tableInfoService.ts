@@ -72,6 +72,20 @@ export async function addTableInfo(params: TableInfoType.TableInfoAddRequest) {
     });
 }
 
+interface ValidateResponse {
+    data: string; // 将 'string' 更新为实际的响应数据类型
+}
+
+export async function validateInfo(params: TableInfoType.ValidateInfo) {
+    return request<BaseResponse<string>>('/table_info/validate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: params,
+    });
+}
+
 /**
  * 根据 id 查询
  * @param id

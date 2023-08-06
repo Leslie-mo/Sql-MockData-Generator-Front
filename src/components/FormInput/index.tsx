@@ -1,6 +1,7 @@
 import FieldInfoCreateModal from '@/components/FieldInfoModal/FieldInfoCreateModal';
 import ImportFieldDrawer from '@/components/ImportFieldDrawer';
 import TableInfoCreateModal from '@/components/TableInfoModal/TableInfoCreateModal';
+import TableInfoCreateForValidateModal from '@/components/TableInfoModal/TableInfoCreateForValidateModal';
 import {
   COMMON_FIELD_LIST,
   DEFAULT_ADD_FIELD,
@@ -39,13 +40,16 @@ interface Props {
  * @constructor
  */
 const FormInput: React.FC<Props> = forwardRef((props, ref) => {
-    const {onSubmit} = props;
+    const { onSubmit} = props;
     const [form] = Form.useForm();
     const [dictList, setDictList] = useState<DictType.Dict[]>([]);
     const [fieldInfoCreateModalVisible, setFieldInfoCreateModalVisible] =
         useState(false);
     const [tableInfoCreateModalVisible, setTableInfoCreateModalVisible] =
         useState(false);
+    const [tableInfoCreateForValidateModalVisible, setTableInfoCreateForValidateModalVisible] =
+        useState(false);
+
     const [createFieldInfo, setCreateFieldInfo] =
         useState<FieldInfoType.FieldInfo>();
     const [createTableInfo, setCreateTableInfo] =
@@ -64,6 +68,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
         }
         console.log('Received values of form:', values);
         onSubmit?.(values);
+
     };
 
 
@@ -312,7 +317,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                                             <Form.Item
                                                                 label="Rule"
                                                                 name={[field.name, 'mockParams']}
-                                                                rules={[{required: true}]}
+                                                                rules={[{required: true,message: "Please enter a regular expression"}]}
                                                             >
                                                                 <Input placeholder="Enter regular expression"/>
                                                             </Form.Item>
@@ -325,54 +330,6 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                                                 rules={[{required: true,message: "Please enter the starting value"}]}
                                                             >
                                                                 <InputNumber/>
-                                                            </Form.Item>
-                                                        );
-                                                    } else if (mockType === '词库') {
-                                                        return (
-                                                            <Form.Item
-                                                                label="词库"
-                                                                name={[field.name, 'mockParams']}
-                                                            >
-                                                                <Select
-                                                                    style={{width: 150}}
-                                                                    showSearch
-                                                                    dropdownRender={(menu) => (
-                                                                        <>
-                                                                            {menu}
-                                                                            <Divider style={{margin: '8px 0'}}/>
-                                                                            <Space
-                                                                                align="center"
-                                                                                size={24}
-                                                                                style={{
-                                                                                    marginLeft: 8,
-                                                                                }}
-                                                                            >
-                                                                                <Button
-                                                                                    size="small"
-                                                                                    onClick={() => {
-                                                                                        window.open('/dict/add');
-                                                                                    }}
-                                                                                >
-                                                                                    创建
-                                                                                </Button>
-                                                                                <Button
-                                                                                    size="small"
-                                                                                    // onClick={() => {
-                                                                                    //   loadDictList();
-                                                                                    // }}
-                                                                                >
-                                                                                    刷新
-                                                                                </Button>
-                                                                            </Space>
-                                                                        </>
-                                                                    )}
-                                                                >
-                                                                    {dictList.map((item) => (
-                                                                        <Option key={item.id} value={item.id}>
-                                                                            {item.name}
-                                                                        </Option>
-                                                                    ))}
-                                                                </Select>
                                                             </Form.Item>
                                                         );
                                                     }
@@ -396,19 +353,7 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                                     >
                                         New Field
                                     </Button>
-                                    {/*<Button*/}
-                                    {/*  type="dashed"*/}
-                                    {/*  onClick={() => {*/}
-                                    {/*    setImportIndex(*/}
-                                    {/*      form.getFieldsValue().fieldList?.length ?? 0,*/}
-                                    {/*    );*/}
-                                    {/*    setImportFieldDrawerVisible(true);*/}
-                                    {/*  }}*/}
-                                    {/*  block*/}
-                                    {/*  icon={<PlusOutlined />}*/}
-                                    {/*>*/}
-                                    {/*  导入字段*/}
-                                    {/*</Button>*/}
+
                                     <Button
                                         type="dashed"
                                         onClick={() => {
@@ -466,6 +411,20 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                             Copy Configuration
                         </Button>
                         <Button htmlType="reset" >Reset</Button>
+                        <Button
+                            onClick={() => {
+
+                                const values = form.getFieldsValue();
+
+                                setCreateTableInfo({
+                                    name: values.tableComment,
+                                    content: JSON.stringify(values),
+                                } as TableInfoType.TableInfo);
+                                setTableInfoCreateForValidateModalVisible(true);
+                            }}
+                        >
+                            Validate SQL
+                        </Button>
                     </Space>
                 </Form.Item>
             </Form>
@@ -474,6 +433,12 @@ const FormInput: React.FC<Props> = forwardRef((props, ref) => {
                 initialValues={createTableInfo}
                 onSubmit={() => setTableInfoCreateModalVisible(false)}
                 onCancel={() => setTableInfoCreateModalVisible(false)}
+            />
+            <TableInfoCreateForValidateModal
+                modalVisible={tableInfoCreateForValidateModalVisible}
+                initialValues={createTableInfo}
+                onSubmit={() => setTableInfoCreateForValidateModalVisible(false)}
+                onCancel={() => setTableInfoCreateForValidateModalVisible(false)}
             />
             <FieldInfoCreateModal
                 modalVisible={fieldInfoCreateModalVisible}

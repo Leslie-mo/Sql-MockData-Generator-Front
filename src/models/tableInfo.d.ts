@@ -17,6 +17,14 @@ declare namespace TableInfoType {
     }
 
     /**
+     * Validate
+     */
+    interface ValidateInfo {
+        apikey: string;
+        sql: string;
+    }
+
+    /**
      * 创建请求
      */
     interface TableInfoAddRequest {
